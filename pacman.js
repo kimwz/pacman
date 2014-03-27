@@ -777,8 +777,6 @@ Pacman.Audio = function(game) {
         if (!game.soundDisabled()) {
             endEvents[name] = function() { ended(name); };
             playing.push(name);
-            files[name].addEventListener("ended", endEvents[name], true);
-            files[name].play();
         }
     };
 
@@ -828,7 +826,7 @@ var PACMAN = (function () {
 
     function drawScore(text, position) {
         ctx.fillStyle = "#FFFFFF";
-        ctx.font      = "12px BDCartoonShoutRegular";
+        ctx.font      = "12px";
         ctx.fillText(text, 
                      (position["new"]["x"] / 10) * map.blockSize, 
                      ((position["new"]["y"] + 5) / 10) * map.blockSize);
@@ -836,7 +834,7 @@ var PACMAN = (function () {
     
     function dialog(text) {
         ctx.fillStyle = "#FFFF00";
-        ctx.font      = "14px BDCartoonShoutRegular";
+        ctx.font      = "14px";
         var width = ctx.measureText(text).width,
             x     = ((map.width * map.blockSize) - width) / 2;        
         ctx.fillText(text, x, (map.height * 10) + 8);
@@ -933,7 +931,7 @@ var PACMAN = (function () {
         ctx.fillText("s", 10, textBase);
 
         ctx.fillStyle = "#FFFF00";
-        ctx.font      = "14px BDCartoonShoutRegular";
+        ctx.font      = "14px";
         ctx.fillText("Score: " + user.theScore(), 30, textBase);
         ctx.fillText("Level: " + level, 260, textBase);
     }
@@ -1088,28 +1086,8 @@ var PACMAN = (function () {
         map.draw(ctx);
         dialog("Loading ...");
 
-        var extension = Modernizr.audio.ogg ? 'ogg' : 'mp3';
 
-        var audio_files = [
-            ["start", root + "audio/opening_song." + extension],
-            ["die", root + "audio/die." + extension],
-            ["eatghost", root + "audio/eatghost." + extension],
-            ["eatpill", root + "audio/eatpill." + extension],
-            ["eating", root + "audio/eating.short." + extension],
-            ["eating2", root + "audio/eating.short." + extension]
-        ];
-
-        load(audio_files, function() { loaded(); });
-    };
-
-    function load(arr, callback) { 
-        
-        if (arr.length === 0) { 
-            callback();
-        } else { 
-            var x = arr.pop();
-            audio.load(x[0], x[1], function() { load(arr, callback); });
-        }
+	loaded();
     };
         
     function loaded() {
