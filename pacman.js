@@ -1183,6 +1183,7 @@ Object.prototype.clone = function () {
     el.style.top = '100px';
     el.style.left = '50%';
     el.style.marginLeft = '-480px';
+    el.style.zIndex = 1000000;
 	document.body.appendChild(el);
     if (Modernizr.canvas && Modernizr.localstorage && 
         Modernizr.audio && (Modernizr.audio.ogg || Modernizr.audio.mp3)) {
